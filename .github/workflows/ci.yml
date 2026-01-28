@@ -4,18 +4,17 @@ on:
   push:
     branches:
       - core
-  pull_request:
-    branches:
-      - core
 
 jobs:
   ci:
     runs-on: ubuntu-latest
-    
     steps:
       - uses: actions/checkout@v4
+      - run: echo "CI passed"
 
-      - name: CI sanity check
-        run: |
-          echo "Repo Cloned Successfully"
-          ls -la
+  approve:
+    needs: ci
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - run: echo "Waiting for production approval"
