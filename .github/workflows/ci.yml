@@ -26,5 +26,5 @@ jobs:
     steps:
       - name: Trigger Jenkins CD
         run: |
-          curl -X POST 'https://${{ secrets.NGROK_URL }}/job/deploy-core/buildWithParameters?token=${{ secrets.JENKINS_JOB_TOKEN }}&COMMIT=${{ github.sha }}' \
-          --user "${{ secrets.JENKINS_USER }}:${{ secrets.JENKINS_API_TOKEN }}"
+          curl -v -X POST "https://${{ secrets.NGROK_URL }}/job/deploy-core/buildWithParameters?token=${{ secrets.JENKINS_JOB_TOKEN }}&COMMIT=${{ github.sha }}" \
+          -u "${{ secrets.JENKINS_USER }}:${{ secrets.JENKINS_API_TOKEN }}"
