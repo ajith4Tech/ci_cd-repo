@@ -20,13 +20,11 @@ jobs:
     steps:
       - name: Manual Gate
         run: echo "Waiting for production approval in GitHub Environments..."
-
   deploy:
     needs: approve
     runs-on: ubuntu-latest
     steps:
       - name: Trigger Jenkins CD
-        # We use buildWithParameters to pass the exact Commit SHA to Jenkins
         run: |
-          curl -X POST "https://${{ secrets.NGROK_URL }}/job/deploy-core/buildWithParameters?token=${{ secrets.JENKINS_JOB_TOKEN }}&COMMIT=${{ github.sha }}" \
+          curl -X POST 'https://${{ secrets.NGROK_URL }}/job/deploy-core/buildWithParameters?token=${{ secrets.JENKINS_JOB_TOKEN }}&COMMIT=${{ github.sha }}' \
           --user "${{ secrets.JENKINS_USER }}:${{ secrets.JENKINS_API_TOKEN }}"
